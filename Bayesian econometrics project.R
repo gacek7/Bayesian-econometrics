@@ -4,7 +4,7 @@ library(mvtnorm)
 
 dane <- read.xlsx("your_data.xlsx", sheet=1, startRow = 1, colNames = TRUE, rowNames = FALSE,
                   detectDates = FALSE)
-dane <- read.csv("your_data.xsc")
+dane <- read.csv("your_data.csv")
 
 y <- 
 X <- 
