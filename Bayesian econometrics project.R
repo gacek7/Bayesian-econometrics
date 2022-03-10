@@ -2,15 +2,14 @@ library(ggplot2)
 library(openxlsx)
 library(mvtnorm)
 
-dane <- read.xlsx("Dane_wyplaty.xlsx", sheet=1, startRow = 1, colNames = TRUE, rowNames = FALSE,
+dane <- read.xlsx("your_data.xlsx", sheet=1, startRow = 1, colNames = TRUE, rowNames = FALSE,
                   detectDates = FALSE)
+dane <- read.csv("your_data.xsc")
 
+y <- 
+X <- 
 
-dane <- read.csv("weather.csv")
-y <- as.matrix(cbind("median_house_value" = dane[,7]))
-X <- as.matrix(cbind("const"=matrix(1,nrow = nrow(y), 1), dane[,c(-4,-6,-7,-8)]))
-tytul_y <- colnames(dane[7])
-tytuly <- colnames(X)
+tytuly <- colnames(X) #titles
 tytuly <- append(tytuly, "tau")
 
 BMNRL <- function(y, X, burnin, mcmc, a, C, n0, s0, plots){
@@ -38,7 +37,7 @@ BMNRL <- function(y, X, burnin, mcmc, a, C, n0, s0, plots){
   }
   beta_matrix <- cbind(beta_matrix, tau_matrix)
   colnames(beta_matrix) <- tytuly
-  #histogramy a post + gêstoœæ a priori
+  #histogramy a post + gÃªstoÅ“Ã¦ a priori
   if(plots == 1){
     for(i in 1:(k+1)){
       hist1 <- hist(beta_matrix[,i], probability=TRUE, main = tytuly[i])
@@ -63,7 +62,7 @@ BMNRL <- function(y, X, burnin, mcmc, a, C, n0, s0, plots){
     for(i in 1:(k+1)){
       c1 <- cumsum(beta_matrix[,i])/seq_along(beta_matrix[,i])
       plot(c1, type="l", panel.first=abline(h=mean(beta_matrix[,i]), col="red"), las=1, main = tytuly[i])
-      dev.print(pdf,paste("Œrednie ergodyczne",tytuly[i],".pdf"))
+      dev.print(pdf,paste("Å’rednie ergodyczne",tytuly[i],".pdf"))
       dev.off()
     }
     #cumsumy
